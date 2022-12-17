@@ -14,9 +14,9 @@ class OpenFile {
   OpenFile._();
 
   ///linuxDesktopName like 'xdg'/'gnome'
-  static Future<OpenResult> open(String? filePath,
-      {String? type,
-      String? uti,
+  static Future<OpenResult> open(String filePath,
+      {String type,
+      String uti,
       String linuxDesktopName = "xdg",
       bool linuxByProcess = false}) async {
     assert(filePath != null);
@@ -26,7 +26,7 @@ class OpenFile {
       if (Platform.isMacOS) {
         _result = mac.system(['open', '$filePath']);
       } else if (Platform.isLinux) {
-        var filePathLinux = Uri.file(filePath!);
+        var filePathLinux = Uri.file(filePath);
         if (linuxByProcess) {
           _result =
               Process.runSync('xdg-open', [filePathLinux.toString()]).exitCode;
@@ -35,7 +35,7 @@ class OpenFile {
               .system(['$linuxDesktopName-open', filePathLinux.toString()]);
         }
       } else if (Platform.isWindows) {
-        _windowsResult = windows.shellExecute('open', filePath!);
+        _windowsResult = windows.shellExecute('open', filePath);
         _result = _windowsResult <= 32 ? 1 : 0;
       } else {
         _result = -1;
@@ -49,8 +49,8 @@ class OpenFile {
                   : "there are some errors when open $filePath${Platform.isWindows ? "   HINSTANCE=$_windowsResult" : ""}");
     }
 
-    Map<String, String?> map = {
-      "file_path": filePath!,
+    Map<String, String> map = {
+      "file_path": filePath,
       "type": type,
       "uti": uti,
     };

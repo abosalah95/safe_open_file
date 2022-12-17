@@ -15,11 +15,11 @@ int system(List<String> args) {
   final systemP = dylib.lookupFunction<SystemC, SystemDart>('system');
 
   // Allocate a pointer to a Utf8 array containing our command.
-  final cmdP = parseArgs(args).toNativeUtf8();
+  final cmdP = Utf8.toUtf8(parseArgs(args));
 
   // Invoke the command, and free the pointer.
   final result = systemP(cmdP);
-  calloc.free(cmdP);
+  free(cmdP);
 
   return result;
 }

@@ -6,10 +6,10 @@ homepage: https://github.com/bertoldofonseca/better_open_file
 dependencies:
   flutter:
     sdk: flutter
-  ffi: ^2.0.1
+  ffi: ^0.1.3
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: ">=2.7.0 <3.0.0"
   flutter: ">=1.12.0"
 
 flutter:
